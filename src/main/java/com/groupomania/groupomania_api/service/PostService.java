@@ -1,7 +1,9 @@
 package com.groupomania.groupomania_api.service;
 
 import com.groupomania.groupomania_api.model.entity.Post;
+import com.groupomania.groupomania_api.model.entity.User;
 import com.groupomania.groupomania_api.repository.PostRepository;
+import com.groupomania.groupomania_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,33 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
+
+    public List<Post> getUserPosts(String email) {
+        User user = getUser(email);
+
+        return postRepository.findByUserIdOrOrderByCreatedAt(user.getId());
+    }
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    public Post createPost(Post createdPost, String email) {
+        User user = getUser(email);
+
+        Post post = Post.builder()
+                .user(user)
+                .content(createdPost.getContent())
+                .image_url(createdPost.getImage_url())
+                .build();
+        return postRepository.save(post);
+    }
+
+    private User getUser(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user;
     }
 
     public Post updatePost(Post updatedPost, Long userId) {
