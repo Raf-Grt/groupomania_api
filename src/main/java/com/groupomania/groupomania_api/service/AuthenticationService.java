@@ -1,7 +1,7 @@
 package com.groupomania.groupomania_api.service;
 
-import com.groupomania.groupomania_api.model.dto.LoginUserDto;
-import com.groupomania.groupomania_api.model.dto.RegisterUserDto;
+import com.groupomania.groupomania_api.model.dto.LoginRequest;
+import com.groupomania.groupomania_api.model.dto.RegisterRequest;
 import com.groupomania.groupomania_api.model.entity.Role;
 import com.groupomania.groupomania_api.model.entity.RoleEnum;
 import com.groupomania.groupomania_api.model.entity.User;
@@ -13,8 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -23,7 +21,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final RoleRepository roleRepository;
 
-    public User signup(RegisterUserDto input) {
+    public User signup(RegisterRequest input) {
         Role roleUser = roleRepository.findByName(RoleEnum.USER)
                 .orElseThrow(() -> new RuntimeException("User role not found"));
 
@@ -36,7 +34,7 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
-    public User authenticate(LoginUserDto input) {
+    public User authenticate(LoginRequest input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),

@@ -18,7 +18,7 @@ public class PostService {
     public List<Post> getUserPosts(String email) {
         User user = getUser(email);
 
-        return postRepository.findByUserIdOrOrderByCreatedAt(user.getId());
+        return postRepository.findByUserIdOrderByCreatedAt(user.getId());
     }
 
     public List<Post> getAllPosts() {

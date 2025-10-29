@@ -1,6 +1,6 @@
 package com.groupomania.groupomania_api.service;
 
-import com.groupomania.groupomania_api.model.dto.RegisterUserDto;
+import com.groupomania.groupomania_api.model.dto.RegisterRequest;
 import com.groupomania.groupomania_api.model.entity.Role;
 import com.groupomania.groupomania_api.model.entity.RoleEnum;
 import com.groupomania.groupomania_api.model.entity.User;
@@ -27,7 +27,7 @@ public class UserService {
         return users;
     }
 
-    public User createAdministrator(RegisterUserDto input) {
+    public User createAdministrator(RegisterRequest input) {
         Role roleAdmin = roleRepository.findByName(RoleEnum.ADMIN)
                 .orElseThrow(() -> new RuntimeException("Admin role not found"));
 

@@ -1,6 +1,6 @@
 package com.groupomania.groupomania_api.controller;
 
-import com.groupomania.groupomania_api.model.dto.RegisterUserDto;
+import com.groupomania.groupomania_api.model.dto.RegisterRequest;
 import com.groupomania.groupomania_api.model.entity.User;
 import com.groupomania.groupomania_api.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class AdminController {
 
     @PostMapping
     @PreAuthorize("hasRole('SUPER_ADMIN')")
-    public ResponseEntity<User> createAdministrator(@RequestBody RegisterUserDto userDto) {
+    public ResponseEntity<User> createAdministrator(@RequestBody RegisterRequest userDto) {
         User createdAdmin = userService.createAdministrator(userDto);
         return ResponseEntity.ok(createdAdmin);
     }

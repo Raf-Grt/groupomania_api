@@ -1,6 +1,6 @@
 package com.groupomania.groupomania_api.config;
 
-import com.groupomania.groupomania_api.model.dto.RegisterUserDto;
+import com.groupomania.groupomania_api.model.dto.RegisterRequest;
 import com.groupomania.groupomania_api.model.entity.Role;
 import com.groupomania.groupomania_api.model.entity.RoleEnum;
 import com.groupomania.groupomania_api.model.entity.User;
@@ -29,7 +29,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private void createSuperAdministrator() {
-        RegisterUserDto userDto = new RegisterUserDto();
+        RegisterRequest userDto = new RegisterRequest();
         userDto.setEmail("super.admin@email.fr");
         userDto.setPassword("adminpwd123456");
 

@@ -1,4 +1,4 @@
-package com.groupomania.groupomania_api.model.response;
+package com.groupomania.groupomania_api.model.dto;
 
 import lombok.*;
 
